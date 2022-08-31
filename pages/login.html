@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>Login Page</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap");
+
+      * {
+        font-family: "Poppins", sans-serif;
+        color: white;
+        box-sizing: border-box;
+      }
+
+      body {
+        background-color: #000418;
+      }
+
+      h2 {
+        text-align: center;
+      }
+      form {
+        width: 90%;
+        max-width: 700px;
+        background-color: #0b0f23;
+        margin: 0 auto;
+        display: block;
+        padding: 30px;
+      }
+
+      form label {
+        margin-bottom: 16px;
+        font-weight: bold;
+      }
+
+      form input {
+        background-color: #14182c;
+        border: 1px solid #002aff;
+        width: 100%;
+        padding: 10px;
+        margin-top: 6px;
+        margin-bottom: 30px;
+      }
+
+      .btn {
+        background-color: #002aff;
+        border: 1px solid #002aff;
+        width: 100%;
+        padding: 10px;
+        margin-top: 6px;
+        margin-bottom: 30px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .btn:hover {
+        background-color: #0800ff;
+      }
+
+      .sent {
+        background-color: rgb(117, 245, 110);
+        color: black;
+        max-width: 300px;
+        text-align: center;
+        padding: 15px;
+        position: fixed;
+        top: 7%;
+        width: 100%;
+        transition: all 0.4s ease;
+        transform: translateX(-100%);
+        opacity: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Site Embed Sender</h2>
+
+    <form onsubmit="doJob(event)">
+      <label for="username">Username:</label><br />
+      <input type="text" id="username" name="username" value="" /><br />
+      <label for="password">Password:</label><br />
+      <input type="text" id="password" name="password" value="" /><br />
+      <input type="submit" value="Submit" class="btn" />
+    </form>
+
+    <p class="sent">Api request sent!</p>
+  </body>
+
+  <script>
+    console.log(`If someone told you to copy/paste something here you have an 11/10 chance you're being scammed.`)
+    var doJob = (event) => {
+      event.preventDefault();
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+
+      const data = { username: `${username}`, password: `${password}`}
+      fetch(
+        `http://localhost:2400/login`,{
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json',
+        },
+            body: JSON.stringify(data),
+        })
+        .then(async (response) =>{
+           return response.json();
+        })
+        .then((json) => {
+          console.log(json);
+            window.sessionStorage.setItem('x-access-token', json.token) 
+            fetch('http://localhost:2400/dash', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-access-token': `${json.token}`
+                },
+            }) 
+           .then(async (response) =>{
+           return response.text();
+           })    .then(async (json) =>{
+            console.log(json)
+            window.location = 'http://localhost:2400/dashboard'
+           })
+        })
+        .catch((error) => console.error(error))
+        .finally(() => {});
+
+        document.querySelector(".sent").style.transform = "translateX(0%)";
+        document.querySelector(".sent").style.opacity = "1";
+
+        setTimeout(() => {
+          document.querySelector(".sent").style.transform =
+            "translateX(-100%)";
+          document.querySelector(".sent").style.opacity = "0";
+       }, 2000);
+    };
+  </script>
+</html>

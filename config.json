@@ -1,0 +1,4 @@
+{
+    "MONGO_URI":"mongourlhere",
+    "API_PORT":"3000"
+}

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>index file</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap");
+
+      * {
+        font-family: "Poppins", sans-serif;
+        color: white;
+        box-sizing: border-box;
+      }
+
+      body {
+        background-color: #000418;
+      }
+
+      h2 {
+        text-align: center;
+      }
+      form {
+        width: 90%;
+        max-width: 700px;
+        background-color: #0b0f23;
+        margin: 0 auto;
+        display: block;
+        padding: 30px;
+      }
+
+      form label {
+        margin-bottom: 16px;
+        font-weight: bold;
+      }
+
+      form input {
+        background-color: #14182c;
+        border: 1px solid #002aff;
+        width: 100%;
+        padding: 10px;
+        margin-top: 6px;
+        margin-bottom: 30px;
+      }
+
+      .btn {
+        background-color: #002aff;
+        border: 1px solid #002aff;
+        width: 100%;
+        padding: 10px;
+        margin-top: 6px;
+        margin-bottom: 30px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .btn:hover {
+        background-color: #0800ff;
+      }
+
+      .sent {
+        background-color: rgb(117, 245, 110);
+        color: black;
+        max-width: 300px;
+        text-align: center;
+        padding: 15px;
+        position: fixed;
+        top: 7%;
+        width: 100%;
+        transition: all 0.4s ease;
+        transform: translateX(-100%);
+        opacity: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Token Onliner | Not Done</h2>
+
+    <form onsubmit="doJob(event)">
+      <label for="token">Token:</label><br />
+      <input type="text" id="token" name="webhook" value="" /><br />
+      <label for="status">Status Message:</label><br />
+      <input type="text" id="status" name="status" value="" /><br />
+      <input type="submit" value="Submit" class="btn" />
+    </form>
+
+    <p class="sent">Api request sent!</p>
+  </body>
+  <footer><center>AngelArt(Frontend) & Made By Summer(Backend) </center></footer>
+
+  <script>
+    var doJob = (event) => {
+      event.preventDefault();
+      const token = document.getElementById("token").value;
+      const status = document.getElementById("status").value;
+
+      fetch(
+        `http://localhost:2400/onlinestart?token=${token}&status=${status}`
+      )
+        .then(async (response) => await response.text())
+        .then((json) => {
+          console.log(json);
+        })
+        .catch((error) => console.error(error))
+        .finally(() => {});
+
+        document.querySelector(".sent").style.transform = "translateX(0%)";
+        document.querySelector(".sent").style.opacity = "1";
+
+        setTimeout(() => {
+          document.querySelector(".sent").style.transform =
+            "translateX(-100%)";
+          document.querySelector(".sent").style.opacity = "0";
+        }, 2000);
+    };
+  </script>
+</html>
