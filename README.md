@@ -44,6 +44,7 @@ Login Page:
 ![image](https://user-images.githubusercontent.com/98126132/187658768-2e803f16-3a88-45ca-990f-415e4f57af63.png)
 
 [!] More Info [!]
+  
 [+] I did not make a page for Signup so you must use postman and make a new user to login.
 
 Enjoy, drop a star for more cool shit <3
