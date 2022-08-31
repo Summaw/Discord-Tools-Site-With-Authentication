@@ -40,7 +40,7 @@ This requires you to have a mongo db you can get that from the instructions belo
 Main Page: 
 ![image](https://user-images.githubusercontent.com/98126132/187658826-d4e168ff-c1a1-4dbd-ab0c-6242d6b00004.png)
 
-Login Page: 
+Login Page:
 ![image](https://user-images.githubusercontent.com/98126132/187658768-2e803f16-3a88-45ca-990f-415e4f57af63.png)
 
 [!] More Info [!]
